@@ -34,6 +34,8 @@ public class UserService implements UserDetailsService {
 
     private JwtService jwtService;
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
@@ -51,6 +53,11 @@ public class UserService implements UserDetailsService {
 
         return userRepository.findById(userId).
                 orElseThrow(()->new ResourseNotFound("user not find for this user id"+userId));
+    }
+
+    public  User  getUserByEmail(String email){
+
+        return userRepository.findByEmail(email).orElse(null);
     }
 
 
@@ -72,4 +79,7 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public User save(User newUser) {
+       return userRepository.save(newUser);
+    }
 }
